@@ -1,36 +1,116 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pos Tech Challenge 01
 
-## Getting Started
+## 📋 Sobre o Projeto
 
-First, run the development server:
+Este é um sistema de gerenciamento financeiro desenvolvido como parte do desafio técnico da Pós-Tech. O projeto visa fornecer uma solução moderna e eficiente para o controle de finanças pessoais, permitindo que os usuários:
 
+- Criem e gerenciem suas contas de forma segura
+- Acompanhem seu saldo em tempo real
+- Registrem e categorizem suas transações financeiras
+- Visualizem relatórios e análises de seus gastos
+- Tenham uma experiência de usuário intuitiva e responsiva
+
+O sistema foi construído utilizando tecnologias modernas como Next.js, TypeScript, Prisma e PostgreSQL, seguindo as melhores práticas de desenvolvimento e arquitetura de software.
+
+## 🚀 Começando
+
+### Pré-requisitos
+
+- Node.js (versão LTS recomendada)
+- Docker e Docker Compose
+- npm, yarn ou pnpm
+
+### Configuração do Ambiente
+
+1. Clone o repositório:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone [URL_DO_REPOSITÓRIO]
+cd pos-tech-challenge-01
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Instale as dependências:
+```bash
+npm install
+# ou
+yarn install
+# ou
+pnpm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Executando os Serviços
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Inicie os serviços do Docker:
+```bash
+cd infra
+docker-compose up -d
+```
 
-## Learn More
+2. Execute as migrações do Prisma:
+```bash
+npx prisma migrate dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+3. Inicie o servidor de desenvolvimento:
+```bash
+npm run dev
+# ou
+yarn dev
+# ou
+pnpm dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Acesse [http://localhost:3000](http://localhost:3000) no seu navegador para ver o resultado.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🛠️ Tecnologias Utilizadas
 
-## Deploy on Vercel
+- Next.js 14
+- TypeScript
+- Prisma (ORM)
+- PostgreSQL
+- Docker
+- Tailwind CSS
+- Shadcn/ui
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📦 Estrutura do Projeto
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `/src` - Código fonte da aplicação
+- `/infra` - Configurações de infraestrutura (Docker)
+- `/prisma` - Schema e migrações do banco de dados
+- `/public` - Arquivos estáticos
+
+## 🔧 Configuração do Banco de Dados
+
+O projeto utiliza PostgreSQL como banco de dados. As configurações padrão são:
+
+- Host: localhost
+- Porta: 5432
+- Usuário: pos_tech
+- Senha: pos_tech
+- Banco: tech_challenge_01
+
+Para atualizar o schema do banco de dados após alterações no Prisma:
+
+```bash
+npx prisma generate
+npx prisma migrate dev
+```
+
+## 🧪 Testes
+
+Para executar os testes:
+
+```bash
+npm run test
+# ou
+yarn test
+# ou
+pnpm test
+```
+
+## 📝 Scripts Disponíveis
+
+- `dev` - Inicia o servidor de desenvolvimento
+- `build` - Cria a build de produção
+- `start` - Inicia o servidor de produção
+- `lint` - Executa o linter
+- `test` - Executa os testes

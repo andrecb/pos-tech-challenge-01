@@ -1,79 +1,28 @@
 'use client';
 
 import {
-  Transaction,
   formatCurrency,
   formatDate,
   getTransactionAmount,
   groupTransactionsByMonth,
   translateTransactionType,
 } from '@/shared/utils/transactions';
-
-const mockTransactions: Transaction[] = [
-  {
-    id: '1',
-    type: 'transfer',
-    amount: 100,
-    date: '2024-03-15',
-  },
-  {
-    id: '2',
-    type: 'deposit',
-    amount: 1000,
-    date: '2024-03-10',
-  },
-  {
-    id: '3',
-    type: 'withdraw',
-    amount: 200,
-    date: '2024-02-20',
-  },
-  {
-    id: '4',
-    type: 'deposit',
-    amount: 500,
-    date: '2024-02-05',
-  },
-  {
-    id: '5',
-    type: 'withdraw',
-    amount: 150,
-    date: '2024-02-18',
-  },
-  {
-    id: '6',
-    type: 'transfer',
-    amount: 250,
-    date: '2023-12-22',
-  },
-  {
-    id: '7',
-    type: 'deposit',
-    amount: 1200,
-    date: '2023-12-10',
-  },
-  {
-    id: '8',
-    type: 'withdraw',
-    amount: 300,
-    date: '2023-11-30',
-  },
-  {
-    id: '9',
-    type: 'transfer',
-    amount: 400,
-    date: '2023-11-15',
-  },
-  {
-    id: '10',
-    type: 'deposit',
-    amount: 800,
-    date: '2023-10-25',
-  },
-];
+import { useTransactions } from '@/shared/contexts/TransactionContext';
 
 export default function Transactions() {
-  const groupedTransactions = groupTransactionsByMonth(mockTransactions);
+  const { transactions, isLoading } = useTransactions();
+  const groupedTransactions = groupTransactionsByMonth(transactions);
+
+  if (isLoading) {
+    return (
+      <div className='bg-zinc-900 rounded-lg p-4 pr-2 flex flex-col gap-4 max-w-full xl:max-w-[300px] w-full min-h-[500px] h-full overflow-y-auto'>
+        <h2 className='text-lg font-bold'>Extrato</h2>
+        <div className='flex-1 flex items-center justify-center'>
+          <span className='text-zinc-400'>Carregando...</span>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className='bg-zinc-900 rounded-lg p-4 pr-2 flex flex-col gap-4 max-w-full xl:max-w-[300px] w-full min-h-[500px] h-full overflow-y-auto'>
@@ -104,7 +53,7 @@ export default function Transactions() {
                       <div className='flex items-center gap-2'>
                         <span
                           className={`${
-                            transaction.type === 'deposit' ? 'text-green-400' : 'text-red-400'
+                            transaction.type === 'income' ? 'text-green-400' : 'text-red-400'
                           }`}
                         >
                           {formatCurrency(amount)}

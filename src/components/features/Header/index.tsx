@@ -31,7 +31,13 @@ export default function Header() {
       <div className='container'>
         <div className='flex items-center justify-between'>
           <Link href='/'>
-            <Image src='/logo.webp' alt='Logo' width={180} height={50} />
+            <Image 
+              src='/logo.webp' 
+              alt='Logo' 
+              width={180} 
+              height={50} 
+              className='w-[120px] md:w-[180px] h-auto'
+            />
           </Link>
 
           <div className='flex items-center gap-4'>

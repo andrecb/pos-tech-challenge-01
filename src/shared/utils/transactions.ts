@@ -1,10 +1,11 @@
-export type TransactionType = 'transfer' | 'deposit' | 'withdraw';
+export type TransactionType = 'transfer' | 'income' | 'expense';
 
 export interface Transaction {
   id: string;
   type: TransactionType;
   amount: number;
-  date: string;
+  date: Date | string;
+  description: string;
 }
 
 export const formatCurrency = (value: number) => {
@@ -14,32 +15,42 @@ export const formatCurrency = (value: number) => {
   }).format(value);
 };
 
-export const formatDate = (dateString: string) => {
+export const formatDate = (date: Date | string) => {
+  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  
+  if (!(dateObj instanceof Date) || isNaN(dateObj.getTime())) {
+    return 'Data inválida';
+  }
+  
   return new Intl.DateTimeFormat('pt-BR', {
     day: '2-digit',
     month: '2-digit',
     year: 'numeric',
-  }).format(new Date(dateString));
+  }).format(dateObj);
 };
 
-export const getMonthYear = (dateString: string) => {
-  const date = new Date(dateString);
-  const month = new Intl.DateTimeFormat('pt-BR', { month: 'long' }).format(date);
-  const year = date.getFullYear();
+export const getMonthYear = (date: Date | string) => {
+  const dateObj = typeof date === 'string' ? new Date(date) : date;
+  
+  if (!(dateObj instanceof Date) || isNaN(dateObj.getTime())) {
+    return 'Data inválida';
+  }
+  const month = new Intl.DateTimeFormat('pt-BR', { month: 'long' }).format(dateObj);
+  const year = dateObj.getFullYear();
   return `${month} ${year}`;
 };
 
 export const translateTransactionType = (type: TransactionType) => {
   const types: Record<TransactionType, string> = {
     transfer: 'Transferência',
-    deposit: 'Depósito',
-    withdraw: 'Retirada',
+    income: 'Entrada',
+    expense: 'Despesa',
   };
   return types[type];
 };
 
 export const getTransactionAmount = (transaction: Transaction) => {
-  if (transaction.type === 'withdraw' || transaction.type === 'transfer') {
+  if (transaction.type === 'expense' || transaction.type === 'transfer') {
     return -transaction.amount;
   }
   return transaction.amount;

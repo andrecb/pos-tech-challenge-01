@@ -14,15 +14,15 @@ import { ServiceCard } from '@/components/ui/ServiceCard';
 import { formatCurrency } from '@/shared/utils/transactions';
 import { usePathname } from 'next/navigation';
 import TransactionTable from '../TransactionTable';
-import { Transaction } from '@/shared/utils/transactions';
+import { useTransactions } from '@/shared/contexts/TransactionContext';
 
 export function DashboardContent() {
   const pathname = usePathname();
+  const { transactions, balance, isLoading } = useTransactions();
+  const [isBalanceVisible, setIsBalanceVisible] = useState(true);
 
   const greeting = getGreeting();
   const currentDate = formatDate();
-  const [balance, setBalance] = useState(10000);
-  const [isBalanceVisible, setIsBalanceVisible] = useState(true);
 
   const toggleBalanceVisibility = () => {
     setIsBalanceVisible(!isBalanceVisible);
@@ -52,70 +52,6 @@ export function DashboardContent() {
       description: 'Faça transferências entre contas',
       icon: ArrowLeftRight,
       onClick: () => console.log('Transferências'),
-    },
-  ];
-
-  // MOCK DE TRANSAÇÕES (igual ao TransactionsSide)
-  const mockTransactions: Transaction[] = [
-    {
-      id: '1',
-      type: 'transfer',
-      amount: 100,
-      date: '2024-03-15',
-    },
-    {
-      id: '2',
-      type: 'deposit',
-      amount: 1000,
-      date: '2024-03-10',
-    },
-    {
-      id: '3',
-      type: 'withdraw',
-      amount: 200,
-      date: '2024-02-20',
-    },
-    {
-      id: '4',
-      type: 'deposit',
-      amount: 500,
-      date: '2024-02-05',
-    },
-    {
-      id: '5',
-      type: 'withdraw',
-      amount: 150,
-      date: '2024-02-18',
-    },
-    {
-      id: '6',
-      type: 'transfer',
-      amount: 250,
-      date: '2023-12-22',
-    },
-    {
-      id: '7',
-      type: 'deposit',
-      amount: 1200,
-      date: '2023-12-10',
-    },
-    {
-      id: '8',
-      type: 'withdraw',
-      amount: 300,
-      date: '2023-11-30',
-    },
-    {
-      id: '9',
-      type: 'transfer',
-      amount: 400,
-      date: '2023-11-15',
-    },
-    {
-      id: '10',
-      type: 'deposit',
-      amount: 800,
-      date: '2023-10-25',
     },
   ];
 
@@ -162,8 +98,13 @@ export function DashboardContent() {
 
       {pathname === '/dashboard/transactions' && (
         <div className='bg-zinc-900 rounded-lg p-4 h-full'>
-          <span className='text-lg font-bold'>Transações</span>
-          <TransactionTable transactions={mockTransactions} />
+          {isLoading ? (
+            <div className="flex justify-center items-center h-32">
+              <span className="text-zinc-400">Carregando transações...</span>
+            </div>
+          ) : (
+            <TransactionTable transactions={transactions} />
+          )}
         </div>
       )}
     </div>

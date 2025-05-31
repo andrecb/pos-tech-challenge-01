@@ -35,7 +35,7 @@ export function DatePicker({ date, setDate, className }: { date: Date, setDate: 
         <Calendar
           mode="single"
           selected={date}
-          onSelect={(date) => setDate(date as Date)}
+          onSelect={(date) => date && setDate(date)}
           initialFocus
           locale={ptBR}
         />
