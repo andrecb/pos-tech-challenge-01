@@ -10,7 +10,7 @@ interface TransactionContextData {
   balance: number;
   isLoading: boolean;
   refreshTransactions: () => Promise<void>;
-  addTransaction: (transaction: Omit<Transaction, 'id' | 'date'>) => Promise<void>;
+  addTransaction: (transaction: Omit<Transaction, 'id'>) => Promise<void>;
   updateTransaction: (transaction: Transaction) => Promise<void>;
   deleteTransaction: (id: string) => Promise<void>;
 }
@@ -42,7 +42,7 @@ export function TransactionProvider({ children }: TransactionProviderProps) {
     }
   };
 
-  const addTransaction = async (transaction: Omit<Transaction, 'id' | 'date'>) => {
+  const addTransaction = async (transaction: Omit<Transaction, 'id'>) => {
     try {
       await transactionService.createTransaction(transaction);
       await refreshTransactions();

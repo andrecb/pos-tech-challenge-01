@@ -70,7 +70,7 @@ export async function PUT(
 ) {
   const id = await Promise.resolve(context.params.id);
   try {
-    const { description, amount, type } = await request.json();
+    const { description, amount, type, date } = await request.json();
 
     if (!description || typeof amount !== 'number' || !type) {
         return NextResponse.json({ message: 'Missing required fields for update' }, { status: 400 });
@@ -87,6 +87,7 @@ export async function PUT(
         description,
         amount,
         type,
+        date: date ? new Date(date) : oldTransaction.date,
       },
     });
 

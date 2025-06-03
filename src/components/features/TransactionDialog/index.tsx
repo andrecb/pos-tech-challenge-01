@@ -90,7 +90,7 @@ export default function TransactionDialog({
 
   const handleDateChange = (date: Date | undefined) => {
     if (date) {
-      setValue('date', date);
+      setValue('date', new Date(date));
     }
   };
 

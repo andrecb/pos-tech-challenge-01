@@ -40,7 +40,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    const { description, amount, type } = await request.json();
+    const { description, amount, type, date } = await request.json();
 
     if (!description || typeof amount !== 'number' || !type) {
       return NextResponse.json({ message: 'Missing required fields' }, { status: 400 });
@@ -51,6 +51,7 @@ export async function POST(request: Request) {
         description,
         amount,
         type,
+        date: date ? new Date(date) : new Date(),
       },
     });
 

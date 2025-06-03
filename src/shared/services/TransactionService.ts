@@ -28,7 +28,7 @@ export class TransactionService {
     }
   }
 
-  public async createTransaction(transaction: Omit<Transaction, 'id' | 'date'>): Promise<Transaction> {
+  public async createTransaction(transaction: Omit<Transaction, 'id'>): Promise<Transaction> {
     try {
       const response = await fetch(this.baseUrl, {
         method: 'POST',

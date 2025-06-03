@@ -19,6 +19,7 @@ O sistema foi construído utilizando tecnologias modernas como Next.js, TypeScri
 - Node.js (versão LTS recomendada)
 - Docker e Docker Compose
 - npm, yarn ou pnpm
+- PostgreSQL 16
 
 ### Configuração do Ambiente
 
@@ -35,6 +36,15 @@ npm install
 yarn install
 # ou
 pnpm install
+```
+
+3. Configure o arquivo .env:
+```bash
+# Copie o arquivo .env.example para .env
+cp .env.example .env
+
+# Edite o arquivo .env e configure a URL do banco de dados
+DATABASE_URL="postgresql://pos_tech:pos_tech@localhost:5432/tech_challenge_01"
 ```
 
 ### Executando os Serviços
@@ -80,7 +90,7 @@ Acesse [http://localhost:3000](http://localhost:3000) no seu navegador para ver 
 
 ## 🔧 Configuração do Banco de Dados
 
-O projeto utiliza PostgreSQL como banco de dados. As configurações padrão são:
+O projeto utiliza PostgreSQL 16 como banco de dados. As configurações padrão são:
 
 - Host: localhost
 - Porta: 5432
@@ -88,23 +98,46 @@ O projeto utiliza PostgreSQL como banco de dados. As configurações padrão sã
 - Senha: pos_tech
 - Banco: tech_challenge_01
 
+Para instalar o PostgreSQL 16:
+
+### macOS (usando Homebrew):
+```bash
+brew install postgresql@16
+brew services start postgresql@16
+```
+
+### Linux (Ubuntu/Debian):
+```bash
+# Adicione o repositório oficial do PostgreSQL
+sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+sudo apt-get update
+
+# Instale o PostgreSQL 16
+sudo apt-get install postgresql-16
+```
+
+### Windows:
+1. Baixe o instalador do PostgreSQL 16 do site oficial: https://www.postgresql.org/download/windows/
+2. Execute o instalador e siga as instruções na tela
+
+Após a instalação, crie o banco de dados e o usuário:
+
+```bash
+# Acesse o PostgreSQL
+psql -U postgres
+
+# Crie o usuário e o banco de dados
+CREATE USER pos_tech WITH PASSWORD 'pos_tech';
+CREATE DATABASE tech_challenge_01;
+GRANT ALL PRIVILEGES ON DATABASE tech_challenge_01 TO pos_tech;
+```
+
 Para atualizar o schema do banco de dados após alterações no Prisma:
 
 ```bash
 npx prisma generate
 npx prisma migrate dev
-```
-
-## 🧪 Testes
-
-Para executar os testes:
-
-```bash
-npm run test
-# ou
-yarn test
-# ou
-pnpm test
 ```
 
 ## 📝 Scripts Disponíveis

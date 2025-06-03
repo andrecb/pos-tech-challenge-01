@@ -9,23 +9,44 @@ import {
 } from '@/shared/utils/transactions';
 import { useTransactions } from '@/shared/contexts/TransactionContext';
 
+const TransactionSkeleton = () => {
+  return (
+    <div className='flex flex-col gap-2 mb-4'>
+      <div className='h-4 w-24 bg-zinc-800 rounded animate-pulse' />
+      <div className='flex flex-col gap-2 bg-zinc-800 rounded-lg p-4'>
+        {[1, 2, 3].map((index) => (
+          <div key={index} className='flex items-center justify-between'>
+            <div className='flex flex-col gap-2'>
+              <div className='h-4 w-32 bg-zinc-700 rounded animate-pulse' />
+              <div className='h-3 w-20 bg-zinc-700 rounded animate-pulse' />
+            </div>
+            <div className='h-4 w-24 bg-zinc-700 rounded animate-pulse' />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 export default function Transactions() {
   const { transactions, isLoading } = useTransactions();
   const groupedTransactions = groupTransactionsByMonth(transactions);
 
   if (isLoading) {
     return (
-      <div className='bg-zinc-900 rounded-lg p-4 pr-2 flex flex-col gap-4 max-w-full xl:max-w-[300px] w-full min-h-[500px] h-full overflow-y-auto'>
+      <div className='bg-zinc-900 rounded-lg p-4 pr-2 flex flex-col gap-4 max-w-full xl:max-w-[300px] w-full h-[500px] xl:h-full overflow-y-auto'>
         <h2 className='text-lg font-bold'>Extrato</h2>
-        <div className='flex-1 flex items-center justify-center'>
-          <span className='text-zinc-400'>Carregando...</span>
+        <div className='flex-1 overflow-y-auto pr-2'>
+          {[1, 2, 3].map((index) => (
+            <TransactionSkeleton key={index} />
+          ))}
         </div>
       </div>
     );
   }
 
   return (
-    <div className='bg-zinc-900 rounded-lg p-4 pr-2 flex flex-col gap-4 max-w-full xl:max-w-[300px] w-full min-h-[500px] h-full overflow-y-auto'>
+    <div className='bg-zinc-900 rounded-lg p-4 pr-2 flex flex-col gap-4 max-w-full xl:max-w-[300px] w-full h-[500px] xl:h-full overflow-y-auto'>
       <h2 className='text-lg font-bold'>Extrato</h2>
       <div className='flex-1 overflow-y-auto pr-2'>
         {Object.entries(groupedTransactions).map(

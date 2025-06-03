@@ -13,7 +13,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className='container flex gap-6 pt-4 pb-4 h-[calc(100dvh-100px)]'>
+    <div className='container flex gap-6 pt-4 pb-4 h-full md:h-[calc(100dvh-100px)]'>
       <Sidebar />
       <div className='flex xl:flex-row flex-col gap-4 w-full overflow-y-auto'>
         {children}
