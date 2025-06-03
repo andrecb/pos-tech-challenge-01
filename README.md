@@ -81,6 +81,30 @@ Acesse [http://localhost:3000](http://localhost:3000) no seu navegador para ver 
 - Tailwind CSS
 - Shadcn/ui
 
+## 📚 Storybook
+
+O projeto utiliza o Storybook para desenvolvimento e documentação de componentes. Para trabalhar com o Storybook:
+
+1. Inicie o Storybook em modo de desenvolvimento:
+```bash
+npm run storybook
+# ou
+yarn storybook
+# ou
+pnpm storybook
+```
+
+2. Para criar uma build estática do Storybook:
+```bash
+npm run build-storybook
+# ou
+yarn build-storybook
+# ou
+pnpm build-storybook
+```
+
+O Storybook estará disponível em [http://localhost:6006](http://localhost:6006) por padrão.
+
 ## 📦 Estrutura do Projeto
 
 - `/src` - Código fonte da aplicação
@@ -147,3 +171,5 @@ npx prisma migrate dev
 - `start` - Inicia o servidor de produção
 - `lint` - Executa o linter
 - `test` - Executa os testes
+- `storybook` - Inicia o Storybook em modo de desenvolvimento
+- `build-storybook` - Cria uma build estática do Storybook
