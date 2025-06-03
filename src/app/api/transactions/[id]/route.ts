@@ -48,7 +48,7 @@ export async function GET(
   request: Request,
   context: { params: { id: string } }
 ) {
-  const id = await Promise.resolve(context.params.id);
+  const { id } = context.params;
 
   try {
     const transaction = await prisma.transaction.findUnique({
@@ -68,7 +68,7 @@ export async function PUT(
   request: Request,
   context: { params: { id: string } }
 ) {
-  const id = await Promise.resolve(context.params.id);
+  const { id } = context.params;
   try {
     const { description, amount, type, date } = await request.json();
 
@@ -104,7 +104,7 @@ export async function DELETE(
   _request: Request,
   context: { params: { id: string } }
 ) {
-  const id = await Promise.resolve(context.params.id);
+  const { id } = context.params;
   try {
     const deletedTransaction = await prisma.transaction.delete({
       where: { id },

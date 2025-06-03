@@ -95,7 +95,7 @@ export function DashboardContent() {
       </div>
 
       {pathname === '/dashboard' && (
-        <div className='bg-zinc-900 rounded-lg p-4 flex flex-col gap-4'>
+        <div className='bg-zinc-900 rounded-lg p-4 flex flex-col gap-4 h-full'>
           <span className='text-lg font-bold'>Serviços disponíveis</span>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
             {services.map((service, index) => (

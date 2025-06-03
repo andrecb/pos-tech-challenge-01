@@ -18,7 +18,7 @@ export default function Hero() {
 
           <div className='flex items-center'>
             <Image
-              src='/hero-finance2.webp'
+              src='/hero-finance.webp'
               alt='Hero'
               width={1000}
               height={600}

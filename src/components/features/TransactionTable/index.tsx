@@ -131,8 +131,8 @@ export default function TransactionTable({
           <span
             className={`font-medium ${
               getTransactionAmount(transaction) >= 0
-                ? 'text-green-500'
-                : 'text-red-500'
+                ? 'text-green-400'
+                : 'text-red-400'
             }`}
           >
             {formatCurrency(getTransactionAmount(transaction))}
@@ -184,8 +184,8 @@ export default function TransactionTable({
                       <span
                         className={
                           getTransactionAmount(transaction) >= 0
-                            ? 'text-green-500'
-                            : 'text-red-500'
+                            ? 'text-green-400'
+                            : 'text-red-400'
                         }
                       >
                         {formatCurrency(getTransactionAmount(transaction))}
